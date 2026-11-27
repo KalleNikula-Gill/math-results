@@ -1,0 +1,160 @@
+def K28.MinimumIs : ℕ → Prop :=
+fun v =>
+  (∃ p, K28.GeneralPosition p ∧ K28.crossings p = v) ∧
+    ∀ (p : K28.Drawing 28 ℝ), K28.GeneralPosition p → v ≤ K28.crossings p
+'K28.witness_gp' depends on axioms: [propext, Quot.sound]
+'K28.witness_count' depends on axioms: [propext, Quot.sound]
+'K28.drawing_with_7234' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.quartet_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Edges.weighted_identity' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Edges.drawing_lower' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Edges.drawing_profile' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Edges.mass_of_profile' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Edges.three_after_eight' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Edges.at_most_two_ninth_exceptions' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Edges.triangle_on_base' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Edges.groups_of_7233' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Edges.oriented_groups_of_7233' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Projection.other_group_at_event' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.shared_apex_line' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.apex_height' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Gates.interval_incompatibility' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Finite.simulate' depends on axioms: [propext, Quot.sound]
+'K28.Finite.projected_paths_below_fifty' depends on axioms: [propext, Lean.ofReduceBool, Lean.trustCompiler, Quot.sound]
+'K28.Projection.starting_frame' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Projection.gate_type' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Flux.two_group_gate_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Flux.band_flux' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Finite.encode_path' depends on axioms: [propext, Quot.sound]
+'K28.Finite.plain_paths_below_fifty' depends on axioms: [propext, Lean.ofReduceBool, Lean.trustCompiler, Quot.sound]
+'K28.Flux.equal_count_incompatibility' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Projection.geometric_sweep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Projection.physical_gate_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Projection.internal_profile_of_7233' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Projection.all_minimizing_cuts' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Projection.physical_record_conflict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Projection.real_score' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Projection.candidate_real_traces' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Projection.candidate_local_rules' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Projection.minimum_reduction' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+K28.Projection.minimum_reduction
+  (low : ∀ (p : K28.Drawing 28 ℝ), K28.GeneralPosition p → ∀ k < 12, K28.lower[k]! ≤ K28.E (K28.Edges.counts p) k)
+  (central : ∀ (p : K28.Drawing 28 ℝ), K28.GeneralPosition p → K28.Edges.counts p 13 ≤ K28.Edges.counts p 12)
+  (realize :
+    ∀ (p : K28.Drawing 28 ℝ),
+      K28.GeneralPosition p →
+        ∀ (X : Finset K28.Edges.V) (F : K28.Projection.GroupFrame p X),
+          X.card = 9 ∨ X.card = 10 →
+            K28.Projection.LocalRules F →
+              K28.Finite.PlainPath X.card (K28.Finite.plainStart X.card) (K28.Projection.realTrace F.q X)) :
+  K28.MinimumIs 7234
+'K28.Projection.starting_state' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Projection.ending_state' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Projection.physical_move' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Projection.realize_sweep' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Projection.no_drawing_with_profile' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Projection.central_edge_bound' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'K28.Projection.minimum_from_low_edges' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+K28.Projection.minimum_from_low_edges
+  (low : ∀ (p : K28.Drawing 28 ℝ), K28.GeneralPosition p → ∀ k < 12, K28.lower[k]! ≤ K28.E (K28.Edges.counts p) k) :
+  K28.MinimumIs 7234
+'K28.Projection.published_values' depends on axioms: [propext]
+'K28.Projection.minimum_using_theorem11' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+K28.Projection.minimum_using_theorem11
+  (low :
+    ∀ (p : K28.Drawing 28 ℝ),
+      K28.GeneralPosition p → ∀ k < 12, K28.Projection.publishedLow k ≤ K28.E (K28.Edges.counts p) k) :
+  K28.MinimumIs 7234
+'K28.Low.three_rays' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Low.Triple.recursion_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Low.low_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'K28.Low.bound_values' depends on axioms: [propext]
+'K28.Low.cumulative_bound_28' depends on axioms: [propext, Classical.choice, Quot.sound]
+theorem K28.minimum_28 : K28.MinimumIs 7234 :=
+K28.Projection.minimum_using_theorem11 K28.Low.cumulative_bound_28
+'K28.minimum_28' depends on axioms: [propext, Classical.choice, Lean.ofReduceBool, Lean.trustCompiler, Quot.sound]
+K28.minimum_28 : K28.MinimumIs 7234

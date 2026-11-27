@@ -1,0 +1,369 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,booktabs,microtype}
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={A sweep certificate for the 28-point rectilinear crossing problem}, pdfauthor={Kalle Nikula-Gill}}
+\usepackage{enumitem}
+\setlist{nosep}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Cr}{\mathcal C}
+\newcommand{\hh}{\operatorname{hull}}
+\newcommand{\ornt}[3]{[#1,#2,#3]}
+\newcommand{\code}[1]{\texttt{\detokenize{#1}}}
+\title{A sweep certificate for the 28-point rectilinear crossing problem}
+\author{Kalle Nikula-Gill}
+\date{27 November 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The rectilinear crossing number of \(K_{28}\) is 7,234, counting each pair of intersecting edge interiors. A drawing with 7,233 crossing pairs would have a prescribed edge profile. We prove that this profile forces three separated groups of sizes \(10,9,9\), and that their projection sweeps would contain exactly 50 internal halving swaps. An integer certificate excludes every compatible triple of sweeps with this weight. We give coordinates attaining 7,234 and a direct proof of the cumulative edge estimates used in the reduction.
+\end{abstract}
+
+\section{The target and the equality profile}
+Let \(P\subset\R^2\) consist of 28 distinct points, no three collinear. Join each unordered pair by a segment. Write \(\Cr(P)\) for the number of unordered pairs of edges with four distinct endpoints whose relative interiors intersect. Thus \(r\) edges meeting at a common interior point contribute \(\binom r2\). \begin{theorem}\label{thm:main}
+Over all such point sets,
+\[
+          \min_P \Cr(P)=7234.                                    \tag{1}
+\]
+\end{theorem}
+For points \(a,b,c\), put \(\ornt abc=\det(b-a,c-a)\). The segments \(ab\) and \(cd\) cross precisely when
+\[
+ \ornt abc\ornt abd<0,\qquad \ornt cda\ornt cdb<0.                \tag{2}
+\]
+Indeed, the signed area with respect to a fixed line interpolates affinely along a segment. Opposite endpoint signs give a unique interior intersection with that line. When both sign tests hold the two intersections are the unique intersection of the same two lines. General position excludes a zero endpoint sign.
+
+An edge has type \(k\) if its line has \(k\) of the other points on its smaller side. Write \(e_k\) for its multiplicity and \(E_k=\sum_{j=0}^k e_j\). A halving edge has type 13. For a fixed edge of type \(k\), there are \(k(26-k)\) pairs on opposite sides of its line. A convex quartet has two separating lines (its diagonals) and contributes one crossing. A quartet with an interior point has three separating lines (the joins to the interior point) and contributes none. Counting the separating lines with their quartets gives
+\begin{align}
+ \Cr(P)&=3\binom{28}{4}-\sum_{k=0}^{13} k(26-k)e_k\notag\\
+       &=\sum_{k=0}^{12}(25-2k)E_k-2457 .                       \tag{3}
+\end{align}
+The second line uses \(\sum e_k=378\), \(13^2=169\), and the consecutive differences of \(k(26-k)\).
+
+For \(0\le k\le11\), Theorem~11 of Aichholzer, García, Orden and Ramos gives
+\[
+ E_k\ \ge\ 3\binom{k+2}{2}+\sum_{j=9}^{k}(3j-25),                \tag{4}
+\]
+where an empty sum is zero \cite{aich}. Appendix~\ref{app:low} proves these instances directly. At the center, \(e_{13}\le e_{12}\) by Corollary~1 of Ábrego, Cetina, Fernández-Merchant, Leaños and Salazar with \(n=28,k=13\) \cite{abregolower}. The error term in that corollary is \(\binom{28-26-1}{2}=0\). Consequently \(2E_{12}\ge378+E_{11}\). Combining the inequalities gives the componentwise lower bounds
+\[
+ (B_0,\ldots,B_{12})=(3,9,18,30,45,63,84,108,135,167,205,249,314).
+\]
+For a direct proof of the central estimate, follow the unordered pair of labels in positions 14 and 15 through a half-turn. Reversal returns this pair to its initial value. Distinct halving lines give distinct visited pairs, since a central swap interchanges exactly those two labels. The pair changes only when a swap uses gate 13 or 15. The initial leftmost 13 labels finish on the right, so at least one swap passes gate 13 and changes the pair. Every value visited by a nonconstant closed walk is the arrival value of some change, including the initial value. Its number of distinct visited pairs is therefore at most its number of changes, which is \(e_{12}\). This proves \(e_{13}\le e_{12}\).
+
+The weighted sum of the lower bounds in (3) is 9,690. Every weight \(25-2k\) is positive. Hence \(\Cr(P)\ge7233\), and equality requires every \(E_k=B_k\). Differencing, including \(E_{13}=378\), gives
+\[
+ (e_0,\ldots,e_{13})=(3,6,9,12,15,18,21,24,27,32,38,44,65,64). \tag{5}
+\]
+
+\section{Three exposed groups}
+Assume (5) in the rest of the lower-bound argument. Let \(h(S)\) be the number of vertices of the convex hull of \(S\).
+\begin{lemma}
+Every deletion of at most eight points leaves a triangular hull. Over all deletions of nine points the total excess of the hull size over three is two.
+\end{lemma}
+\begin{proof}
+For \(0\le d\le9\), count the hull edges after deleting \(D\), \(|D|=d\). An edge survives on the boundary precisely when its endpoints survive and all the points on one side are deleted. Only the smaller side can be deleted at this size. Thus
+\[
+ \sum_{|D|=d} h(P\setminus D)=\sum_{j=0}^{d}e_j\binom{26-j}{d-j}.
+\]
+In an arbitrary indexing of \(P\), the second survivor occupies position \(j+2\) precisely when one of the first \(j+1\) points survives, the other \(j\) are deleted, and position \(j+2\) survives. This partitions the deletion sets and proves
+\[
+ \sum_{j=0}^{d}(j+1)\binom{26-j}{d-j}=\binom{28}{d}.
+\]
+Use \(e_j=3(j+1)\) through \(j=8\) and \(e_9=30+2\). Each remaining set spans the plane and has at least three hull vertices. The asserted equalities follow.
+\end{proof}
+
+Let \(a,b,c\) be the hull of \(P\). Hold \(b,c\) fixed and delete the third hull vertex. Repeat nine times, beginning with \(a\). At each of the first nine choices the preceding deletion has size at most eight, so the choice is unique. If the ninth deletion also leaves a triangle, append its third hull vertex as a tenth point. Construct chains based at \(b\) and \(c\) in the same way. A retained original extreme point stays extreme under every such deletion.
+
+\begin{lemma}\label{lem:peel}
+The chains partition \(P\), with lengths \(10,9,9\) in some order. Each chain is strictly linearly separable from the union of the other two.
+\end{lemma}
+\begin{proof}
+Suppose the \(a\)- and \(b\)-chains share a point \(x\). Neither can select one of its two fixed vertices, so \(x\) must be strictly inside \(abc\). Immediately before its selection, the two remaining sets lie in the closed triangles \(xbc\) and \(axc\), respectively. Their intersection is contained in the line \(xc\), since \(a,b\) are on opposite sides of this line. At least \(28-9-9=10\) points survive both prefixes. This contradicts general position. The same argument works for each pair of chains.
+
+The three ninth-deletion sets are consequently distinct. At most two can have positive hull excess. At least one makes a tenth selection. Two tenth selections would require at least 29 distinct points. This proves the sizes and exhausts the set.
+
+For the \(a\)-chain use the affine functional \(F\) with \(F(a)=1,\ F(b)=F(c)=0\). At a third vertex \(x\) all survivors lie in \(xbc\), where the maximum of \(F\) occurs only at \(x\). Its value is positive, and the successive values decrease strictly. In particular the least value on the chain exceeds the largest value on the other two chains. A level line between them strictly separates the sets.
+\end{proof}
+
+The three convex hulls are also pairwise disjoint, and no line meets all three. On such a line the middle of three representatives would lie in the convex hull of the other two, contrary to strict separation. The orientation of a transversal triple is therefore nonzero and constant on the product of the three convex hulls, by continuity and connectedness. Name the size-10 group \(A\) and the others \(B,C\) so that the common orientation of \(ABC\) triples is positive.
+
+\section{Gate counts and equality in a band}
+Project the points onto a rotating oriented axis and record their order by increasing projection. During a counterclockwise half-turn each pair swaps once and the final order reverses the initial order. We may first perturb all coordinates slightly to avoid parallel joining lines. The signs of all finitely many triple determinants and the strict separation inequalities survive sufficiently small perturbations. Parallelism of distinct joining lines is a finite union of proper polynomial zero sets, so such a perturbation exists. Choose all starting directions away from ties. An event is then a single adjacent transposition. Gate \(g\) is the swap of positions \(g,g+1\), numbered from 1. Its type is \(\min(g-1,27-g)\).
+
+Take a cyclic triple of groups \(X,Y,Z\), with \(x=|X|,\ y=|Y|\). Start this group's half-turn with \(X\) strictly first. At every outside swap an \(X\) label moves right. From any fixed \(X\) point, the vectors to \(Y\) and \(Z\) are in the right half-plane of the initial axis. Positivity of all \(XYZ\) triples places every vector to \(Y\) before every vector to \(Z\) in angular order. For a vector of angle \(\phi\in(-\pi/2,\pi/2)\), the swap comes at axis angle \(\phi+\pi/2\). Thus each \(X\) point passes every \(Y\) point before passing any \(Z\) point.
+
+At an \(XY\) swap all \(Z\) points are to the right of that particular \(X\) point. Deleting \(Z\) therefore preserves the gate index. In the order restricted to \(X\cup Y\), the number of \(X\)'s among the first \(g\) positions decreases from \(\min(g,x)\) to \(\max(0,g-y)\), one unit per \(XY\) swap at \(g\). The count is
+\[
+ N_{xy}(g)=\min(g,x)-\max(0,g-y) \quad(1\le g<x+y),
+\]
+and is zero at larger gates. Apply this formula to \(AB,BC,CA\) using the appropriate half-turn for each pair. The type count uses the sum at reflection-related gates \(g,28-g\), counted only once at \(g=14\), and is independent of the half-turn's start. Subtraction from (5) yields
+\begin{center}
+\begin{tabular}{lrrrrrr}
+\toprule
+Type \(k\)&\(0\le k\le8\)&9&10&11&12&13\\\midrule
+Between groups&\(3(k+1)\)&28&28&28&28&14\\
+Within groups&0&4&10&16&37&50\\\bottomrule
+\end{tabular}
+\end{center}
+Every internal swap takes place at a gate in \(\{10,\ldots,18\}\).
+
+For one group of size \(m\), label its points \(1,\ldots,m\) from left to right in its own initial projection. Set \(I_d=\{14-d,\ldots,14+d\}\) and \(s=2d+1\), for \(1\le d\le4\). Let \(H_d\) count its internal swaps in \(I_d\). Every group label starts to the left of each gate in \(I_d\) and ends to its right. Across the band it therefore makes \(s\) more rightward crossings than leftward crossings.
+
+\begin{lemma}\label{lem:band}
+For \(0\le t\le m\),
+\[
+             H_d\le \binom{t}{2}+\binom{m-t}{2}+st.               \tag{6}
+\]
+At equality, each pair of labels on the same side of the cut after \(t\) swaps in \(I_d\), and no prefix label crosses an outside point in \(I_d\).
+\end{lemma}
+\begin{proof}
+Sum the net movement over the first \(t\) labels. A swap of two prefix labels has net contribution zero. Every prefix--suffix swap moves the prefix label right, since that pair has not changed order before its unique swap. An outside swap also moves a prefix label right. Hence the number of prefix--suffix swaps in the band equals \(st\) minus the number of prefix--outside swaps there. The two binomial coefficients bound the remaining internal pairs, each of which swaps once in the half-turn. All three slacks are nonnegative, giving the equality assertions.
+\end{proof}
+
+The minimizing cuts in (6) are the floor and ceiling of \((m-s)/2\), as follows by taking the first difference \(2t+1-m+s\). In the following table both endpoints of a listed pair of cuts minimize.
+\begin{center}
+\begin{tabular}{rrrrrr}
+\toprule
+\(d\)&Cuts for 10&Bound for 10&Cut for 9&Bound for 9&Required across groups\\\midrule
+1&3,4&33&3&27&87\\
+2&2,3&39&2&32&103\\
+3&1,2&43&1&35&113\\
+4&0,1&45&0&36&117\\\bottomrule
+\end{tabular}
+\end{center}
+The last column is the sum of the internal counts at types \(13-d,\ldots,13\). In every row it equals the size-10 bound plus twice the size-9 bound. Thus every individual bound is attained, and both rules of Lemma~\ref{lem:band} hold for every minimizing cut.
+
+\section{A conflict between two sweeps}
+In its group's own half-turn, record an internal swap as \((g,r)\) where its left point is the \(r\)-th group label in current order. For a cyclic pair \(X,Y\), keep their records in their respective sweeps.
+\begin{lemma}\label{lem:clash}
+If \(10\le g\le18\) and \(1\le l<x+y-g\), the two records
+\[
+                   X:(g,g-y+l),\qquad Y:(28-g,l)                 \tag{7}
+\]
+cannot both occur.
+\end{lemma}
+\begin{proof}
+Write \(r=g-y+l\), \(h=28-g\), and \(z=28-x-y\). Then \(0<r<x\). Suppose both records occur, on lines \(e\) through two \(X\)'s and \(f\) through two \(Y\)'s. In the \(Y\)-frame, \(h-l=z+x-r\) points outside \(Y\) project strictly below the tied pair on \(f\). At least one of them belongs to \(X\). Seen from either endpoint of \(f\), every \(Z\) passes before every \(X\) by the transversal orientation. Thus all \(z\) points of \(Z\) project below the pair, and precisely \(x-r\) points of \(X\) do. The remaining \(r\) points of \(X\) project strictly above it.
+
+Choose an \(X\) on each side of \(f\). Their joining segment meets \(f\) at a point \(w\). In a frame starting with \(X\), the initial projection of \(w\) lies strictly before both endpoints of \(f\). In a frame starting with \(Y\), it lies strictly after both. The affine parameter of \(w\) along \(f\) is the same in the two frames. Consequently the endpoints of \(f\) have opposite initial orders. At their tie the signs of all projected displacements reverse, by the signed-area identity relating a displacement to the initial horizontal difference of the endpoints. In the \(X\)-frame, \(f\) therefore uses gate \(g\) with exactly \(r\) points of \(X\) strictly below its tie.
+
+Compare the two ties in the \(X\)-frame. For any successive projection times and any two thresholds, an increase in the number of \(X\)'s below the threshold cannot accompany a decrease in the number of outside points below it. Otherwise some \(X\) enters while some outside point leaves, reversing their order in the forbidden direction. The same argument applies to closed sublevels. For open sublevels at the ties on \(e,f\), the respective counts of \(X\)'s are \(r-1,r\), and the outside counts are \(g-r,g-r-1\). This excludes \(e\) preceding \(f\). For closed sublevels at \(f,e\), the respective counts are \(r,r+1\) and \(g-r+1,g-r\). This excludes \(f\) preceding \(e\), including equality of projection times.
+\end{proof}
+
+\section{Finite exclusion}\label{sec:finite}
+For each \(m\in\{9,10\}\), maintain a permutation \(p\) of its labels and the nine prefix counts \(u_{10},\ldots,u_{18}\). Consecutive counts differ by zero or one. The initial state has \(p\) increasing and all counts \(m\). The accepting state has \(p\) decreasing and all counts zero.
+
+\begin{enumerate}[label=\arabic*.]
+\item An outside move decreases \(u_g=r>0\) by one, leaving every other count and \(p\) unchanged. The new counts must remain nondecreasing with consecutive differences at most one. The affected label \(p_r\) must be outside every protected prefix at this gate, as required by Lemma~\ref{lem:band}.
+\item An internal move at \(g\) sets \(r=u_g\), requires \(1\le r<m\) and \(p_r<p_{r+1}\), and exchanges those two labels. If tracked, \(u_{g-1}\) must be \(r-1\) and \(u_{g+1}\) must be \(r+1\). Whenever the two labels lie on the same side of a minimizing cut at radius \(d\), require \(g\in I_d\). Emit record \((g,r)\).
+\end{enumerate}
+A geometric sweep projects to this graph by discarding events that leave the stored state unchanged. The two neighbor conditions assert that the slots \(g,g+1\) belong to the group. At an untracked boundary the test allows either possibility. An outside swap changes just one prefix count, and group order changes only at an internal swap. Every unordered pair swaps once. The retained internal swaps therefore end in reverse order. The sum of the prefix-count drops and the increase in the inversion number strictly increases at every retained step. Each accepting path has \(9m+\binom m2\) steps.
+
+Give an internal swap at gate 14 weight one and every other move weight zero. A triple of paths is compatible if it never uses both ends of a conflict (7). A drawing with profile (5) would produce compatible paths of total weight 50.
+
+There are \(4+3+4=11\) conflicts at the central gate. For each conflict, ban one of its two records, making \(2^{11}\) choices. If a triple uses neither record of a conflict it is covered by both choices. For each allowed record set, a longest-path calculation gives the maximum possible weight in a single group. At each state, intersecting the record sets of the maximizing continuations identifies the records common to all of them. An immediate conflict of compulsory records excludes a case. After banning the opposite records in other groups, the same reasoning applies again. The integer computation gives
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Outcome&Central choices\\\midrule
+A group is infeasible or the initial sum is below 50&2,032\\
+Compulsory records conflict on the first pass&12\\
+Further bans exclude the case&4\\\midrule
+Survivors&0\\\bottomrule
+\end{tabular}
+\end{center}
+The largest initial sum is 50, so every remaining path would have to attain its own maximum.
+
+\paragraph{The proof certificate.}
+The supplied certificate uses a second finite exclusion. The 16 remaining assignments receive explicit binary trees of additional conflicts from (7). Each branch bans one end. At a leaf, the sum of three independently checked upper bounds is below 50, or some group has no path. A heuristic can generate such a tree without affecting its soundness. Each proposed split is checked against (7).
+
+The two compact directed graphs and their state maps are also untrusted input. Their nodes are indexed with children before parents. The original graph for \(m=10\) has 103,648 live states, and the compact graph has 100,203 nodes. The corresponding sizes for \(m=9\) are 98,464 and 94,999. Identical successor lists can share a node, and a single silent transition can be contracted. The checker generates the allowed successors of each reachable state from the two move rules. It checks the image of the accepting state, and for each transition into a live image it requires a corresponding graph arc or a silent step with unchanged image. A state with dead image cannot enter a live image. The coverage recursion returns failure if its depth limit is reached before the state is discharged. Induction on a path then maps every accepting abstract sweep into the supplied graph.
+
+For a fixed ban mask, the certificate checks integer potentials \(U(v)\). The terminal node has \(U\ge1\). For every unbanned arc \(v\to w\) with \(U(w)>0\), it checks \(U(v)\ge U(w)+\text{weight}(v,w)\). Induction gives \(1+\text{path weight}\le U(v)\) for every permitted accepting continuation. This proves each numerical upper bound needed by the case tree. A second description of the moves stores an ordinary list of labels and nine integer prefix counts. It modifies these lists directly and tests the new counts after each outside swap. The released verifier compares every ordinary move to decoded packed successors on every reachable packed state. An accepting ordinary path therefore has a packed lift with exactly the same records. The exclusion applies to all paths satisfying the two move rules and (7).
+
+\begin{proposition}
+The proposed equality profile (5) is incompatible with the sweep conditions of Lemmas~\ref{lem:band} and~\ref{lem:clash}.
+\end{proposition}
+\begin{proof}
+The internal type-13 count is 50. The three induced paths would have this total weight, contrary to the finite exclusion.
+\end{proof}
+Since the crossing count is an integer, every drawing has at least 7,234 crossing pairs.
+
+\section{An integer drawing}
+Table~\ref{tab:coords} gives one drawing. We obtained a starting set by rounding a scaled copy of the 30-point drawing in Figure~7 of Ábrego et al.~\cite{abregoupper} and deleting two vertices. A search replacing one point at a time supplied the displayed integer coordinates. Only the displayed integers enter the proof. Checking all \(3,276\) triples gives a least absolute double area of \(286,336\). Testing the three edge pairings on each of the \(20,475\) quartets gives 7,234 crossing pairs. Its edge profile agrees with (5) through \(k=11\) and ends in \(66,63\). This proves attainment and completes Theorem~\ref{thm:main}.
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{rrr@{\qquad}rrr}
+\toprule \(i\)&\(x_i\)&\(y_i\)&\(i\)&\(x_i\)&\(y_i\)\\\midrule
+0 & 143126 & 4586733 & 14 & -1196602 & -713890 \\
+1 & 119974 & 4200259 & 15 & -488108 & -323595 \\
+2 & 51722 & 233630 & 16 & -591143 & -455564 \\
+3 & -43308 & 630913 & 17 & -300677 & -313051 \\
+4 & -52873 & 1335748 & 18 & 3903952 & -2422351 \\
+5 & -50267 & 1223518 & 19 & 3505278 & -2160659 \\
+6 & -87544 & 802804 & 20 & 138596 & -163261 \\
+7 & -121934 & 404305 & 21 & 545260 & -278124 \\
+8 & -125227 & 396602 & 22 & 1462837 & -805373 \\
+9 & -2209627 & -1253000 & 23 & 1201083 & -651628 \\
+10 & -3512998 & -1906726 & 24 & 613333 & -285990 \\
+11 & -238398 & -62762 & 25 & 717379 & -310700 \\
+12 & -495366 & -325174 & 26 & 407622 & -94280 \\
+13 & -1821377 & -1059183 & 27 & 385010 & -72991 \\
+\bottomrule
+\end{tabular}
+\caption{Integer coordinates indexed from zero.}\label{tab:coords}
+\end{table}
+
+\paragraph{Reproducing the two counts.}
+From the root of the accompanying source package, the following commands
+check the coordinates and repeat the complete case enumeration.
+\begin{verbatim}
+cd lean
+python3 scripts/check_witness.py
+c++ -O3 -std=c++17 verify_k28.cpp -o verify_k28
+./verify_k28
+\end{verbatim}
+The coordinate check reads the same 28 ordered pairs as Table~\ref{tab:coords}.
+The search uses the move rules of Section~\ref{sec:finite} and the conflicts (7).
+The package also includes the compact graphs, the branch trees, and the
+script that regenerates them.
+
+\appendix
+\section{The cumulative bound in the required range}\label{app:low}
+We give a proof of the twelve instances of (4). The argument uses the
+halving directions at exposed vertices that enter the geometric bound
+of Aichholzer et al.~\cite{aich}. Its three angular sectors give a
+geometric version of the alternating gate count of Ábrego et
+al.~\cite[Proposition~5]{extended}.
+
+For a set \(S\) of \(n\) points in general position, let \(H(S,w)\)
+count ordered pairs \((x,y)\) with fewer than \(w\) points strictly to
+the right of \(xy\). We use \(2w+4\le n\), so an unordered edge
+contributes at most once and \(H(S,k+1)=E_k(S)\). We show that, for
+\(w\ge2\), one can remove three points to obtain a set \(T\) with
+\begin{equation*}
+ H(S,w)\ \ge\ H(T,w-2)+6w-3+\max\{0,3w-n\}.
+\end{equation*}
+Here \(H(S,0)=0\) and \(H(S,1)\ge3\), since each hull edge contributes
+one orientation.
+
+\paragraph{Choosing the three directions.}
+At each hull vertex \(a\), choose local orthogonal coordinates in which
+all other points have strictly positive first coordinate relative to
+\(a\). The slopes of the \(n-1\) vectors from \(a\) are distinct. Put
+\(m=\lfloor(n-1)/2\rfloor\). Choose \(t\) strictly between slopes in
+positions \(m\) and \(m+1\), numbered from one. Let \(u_a\) point along
+\((-1,-t)\) in these coordinates. Both sides of the median line
+contain at least \(m\) of the other points. Each choice has an open
+interval of slopes, so choose directions pairwise nonparallel and
+parallel to none of the lines through two drawing points.
+
+For each linear functional \(d\) with \(d(u_a)\ge0\), at least \(m\)
+other points \(b\) satisfy \(d(b)\le d(a)\). Indeed, write
+\(d(x,y)=\alpha x+\beta y\) in local coordinates. Then
+\(\alpha+\beta t\le0\). If \(\beta\ge0\), all slopes below \(t\)
+give \(d(b-a)\le0\). If \(\beta<0\), use the slopes above \(t\).
+
+Every nonzero functional \(d\) takes a positive value on some \(u_a\).
+Choose a hull vertex maximizing \(d\), breaking a tie by a second
+linear functional. If \(d(u_a)\le0\), applying the preceding property
+to \(-d\) gives at least \(m\ge2\) other points on the maximizing
+line. This contradicts general position. It follows that three of the
+directions, denoted \(u,v,z\), surround the origin. To see this
+directly, fix \(u\), choose orthogonal coordinates with \(u\) along
+the positive horizontal axis, and among directions with positive
+vertical component take \(v\) minimizing \(v_x/v_y\). Such a direction
+exists by the positive-value property. Apply the property again to
+\(d(x)=\det(v,x)\) to get \(z\) with \(\det(v,z)>0\). No direction
+above the axis can satisfy this inequality by the choice of \(v\).
+Thus \(z\) is below the axis, and
+\(\det(u,v),\det(v,z),\det(z,u)>0\). In particular a functional has
+nonnegative value on at least one of the three directions. This follows
+also from
+\(\det(v,z)u+\det(z,u)v+\det(u,v)z=0\).
+
+Let \(a,b,c\) be the three corresponding hull vertices and set
+\(T=S\setminus\{a,b,c\}\). Each vertex contributes \(2w\) incident
+ordered edges to \(H(S,w)\). In the slope ordering the first \(w\)
+neighbors yield \(w\) outgoing edges and the last \(w\) yield \(w\)
+incoming edges. Only the three edges between selected vertices can be
+counted twice, so the incident edges contribute at least \(6w-3\).
+
+\paragraph{Transferring an edge from \(T\).}
+For an ordered edge \(xy\) in \(T\), take the normal functional
+\(d(s)=\det(y-x,s)\), so its right side is \(d(s)<d(x)\). Suppose
+this open side contains \(j\le w-2\) points of \(T\). If a removed
+point \(a\) lies there and \(d(u_a)\ge0\), the median property puts at
+least \(m\) other points there. At most two of them are outside \(T\).
+This is impossible since \(j+2\le w<m\). Consequently only removed
+points with negative direction value can be added to this side.
+At most two directions have negative value. This transfers every edge
+of \(H(T,w-2)\). It also transfers an edge with \(j=w-2\) whenever
+exactly one direction has negative value.
+
+\paragraph{Counting the additional edges.}
+Write \(g=w-1\), \(N=|T|\), and \(f_u(x)=\det(u,x)\), with analogous
+notation for \(v,z\). All three orders are strict. Let \(A_u\) and
+\(B_u\) be the sets of the first and the last \(g\) points of \(T\)
+in increasing \(f_u\)-order. They are disjoint since \(2g\le N\).
+
+Order the points by \(f_u-sf_v\), increasing \(s\) from zero to
+positive infinity. The first \(g\) labels start at \(A_u\) and finish
+at \(B_v\). Each label in \(A_u\setminus B_v\) must exit across the
+boundary. At that swap exactly \(g-1\) points project strictly lower.
+A tied third point would be collinear with the endpoints. Ties of
+disjoint pairs at the same time can be resolved one at a time.
+Orient the edge so that the lower half-plane is its right side.
+Its normal is a positive multiple of \(f_u-sf_v\), whose values on
+\(u,v,z\) have signs \(+,+,-\). Each exiting label supplies a distinct
+ordered edge, since a boundary swap has just one exiting label and
+a fixed pair swaps only once.
+
+Repeat cyclically. The three classes of ordered edges are disjoint,
+being distinguished by their negative direction. The three sets
+\(A_u\cap B_v,\ A_v\cap B_z,\ A_z\cap B_u\) are pairwise disjoint
+subsets of \(T\), because \(A_i\cap B_i=\varnothing\) for each direction
+\(i\). The three sectors therefore supply at least \(3g-N=3w-n\)
+additional edges. Each has exactly \(w-2\) points of \(T\) on its right,
+so all are distinct from the \(H(T,w-2)\) edges counted earlier.
+This proves the recurrence.
+
+Under \((n,w)\mapsto(n-3,w-2)\) the margin \(n-2w\) increases by one.
+Starting at \(n=28\), substitution for \(w=1,\ldots,12\) gives the
+lower bounds
+\[
+  3,\ 9,\ 18,\ 30,\ 45,\ 63,\ 84,\ 108,\ 135,\ 167,\ 205,\ 249 .
+\]
+These are precisely the values of (4).
+
+\paragraph{AI assistance.}
+GPT 6.2 Astra assisted with proof development, the coordinate search, the computational checks, and manuscript preparation.
+
+\begin{thebibliography}{9}
+\bibitem{aich}
+O. Aichholzer, J. García, D. Orden and P. Ramos,
+New lower bounds for the number of \((\le k)\)-edges and the rectilinear crossing number of \(K_n\),
+\emph{Discrete Comput. Geom.} \textbf{38} (2007), 1--14.
+\href{https://arxiv.org/abs/math/0608610}{arXiv:math/0608610}.
+\bibitem{extended}
+B. M. Ábrego, J. Balogh, S. Fernández-Merchant, J. Leaños and G. Salazar,
+An extended lower bound on the number of \((\le k)\)-edges to generalized configurations of points and the pseudolinear crossing number of \(K_n\),
+\emph{J. Combin. Theory Ser. A} \textbf{115} (2008), 1257--1264.
+\href{https://doi.org/10.1016/j.jcta.2007.11.004}{doi:10.1016/j.jcta.2007.11.004}.
+\bibitem{abregolower}
+B. M. Ábrego, M. Cetina, S. Fernández-Merchant, J. Leaños and G. Salazar,
+On \((\le k)\)-edges, crossings, and halving lines of geometric drawings of \(K_n\),
+\emph{Discrete Comput. Geom.} \textbf{48} (2012), 192--215.
+\href{https://doi.org/10.1007/s00454-012-9403-y}{doi:10.1007/s00454-012-9403-y}.
+\bibitem{abregoupper}
+B. M. Ábrego, M. Cetina, S. Fernández-Merchant, J. Leaños and G. Salazar,
+3-symmetric and 3-decomposable geometric drawings of \(K_n\),
+extended version, Figure~7.
+\href{https://arxiv.org/abs/0805.0016}{arXiv:0805.0016}.
+\end{thebibliography}
+\end{document}
