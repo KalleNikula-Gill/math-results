@@ -1,0 +1,20 @@
+'WeightedStar.tree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WeightedStar.zonotope_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WeightedStar.lattice_bijective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WeightedStar.lattice_point_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WeightedStar.latticeSum_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DefantCircuit.exact_certificate' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'WeightedStar.question_9_4' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+'WeightedStar.exists_nonreal_zero' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]

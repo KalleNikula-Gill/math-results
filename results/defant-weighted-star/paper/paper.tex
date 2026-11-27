@@ -1,0 +1,123 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,booktabs}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\R}{\mathbb R}
+\newcommand{\bx}{x_0}
+\title{A Narayana sum with nonreal zeros on a weighted star}
+\author{Kalle Nikula-Gill}
+\date{}
+\hypersetup{pdftitle={A Narayana sum with nonreal zeros on a weighted star},
+  pdfauthor={Kalle Nikula-Gill}}
+\begin{document}
+\maketitle
+\begin{abstract}
+A star with 106 leaves gives a negative answer to the real-rootedness part of Defant's Question 9.4. A leaf coordinate recovers the integer split of its incident edge, so the lattice-point sum admits a one-variable coefficient recurrence. At \(x=-1/258\), an exact evaluation of that recurrence and its first two derivatives violates a necessary inequality for real-rootedness.
+\end{abstract}
+
+\section{The weighted star}
+For a tree on a vertex set \(V\), write \(e_v\) for the \(v\)-th coordinate vector and
+\(\Delta_{uv}=\operatorname{conv}\{e_u,e_v\}\). Choose a positive integer translation
+\(a\in\Z_{>0}^V\) and a positive integer mass \(m_e\) for each edge. Defant asks whether the polynomial
+\[
+ F_P(x)=\sum_{q\in P\cap\Z^V}\;\prod_{v\in V} N_{q_v}(x),
+ \qquad P=a+\sum_{uv\in E}m_{uv}\Delta_{uv},
+\]
+is always real-rooted \cite[Question 9.4]{defant}. Here
+\(N_n(x)=\sum_{j=1}^n\frac1n\binom nj\binom n{j-1}x^j\) for \(n\ge1\).
+We take coefficients in \(\R\) and call a polynomial real-rooted when it splits into real linear factors.
+
+\begin{theorem}
+Let \(T\) be a star with center \(c\), set \(a_c=1\), and assign the following two types to its leaves. Then \(F_P\) has a nonreal complex zero.
+\end{theorem}
+\begin{center}
+\begin{tabular}{rrr}\toprule
+Number of leaves & Leaf translation \(a_i\) & Incident edge mass \(m_i\)\\\midrule
+10 & 1 & 23\\
+96 & 30 & 1\\\bottomrule
+\end{tabular}
+\end{center}
+An arbitrary point on the \(i\)-th dilated segment has the form
+\(s_i e_c+(m_i-s_i)e_i\) for \(0\le s_i\le m_i\). Summing the segments gives
+\begin{equation}
+ q_c=1+\sum_i s_i,\qquad q_i=a_i+m_i-s_i.                         \label{eq:coord}
+\end{equation}
+The leaf coordinate uniquely determines \(s_i=a_i+m_i-q_i\). Thus an integral \(q\) gives integral \(s_i\), and every choice of integers in the prescribed ranges gives one integral \(q\). In particular there are \(24^{10}\cdot2^{96}\) lattice points, each counted once.
+
+Put \(B_h=N_{h+1}/x\), and write \(F_P=x^{107}G\). Each \(B_h\) is monic of degree \(h\) and has constant term 1. Equation~\eqref{eq:coord} gives every summand of \(G\) the same degree
+\[
+ D=\sum_v(a_v-1)+\sum_i m_i=96\cdot29+10\cdot23+96=3110.
+\]
+The positive leading coefficients give \(\deg G=D\). The log-concavity part of Question 9.4 is not addressed here.
+
+\section{The lattice sum and the derivative test}
+Introduce a variable \(w\) that records the total mass sent to the center. For \(b=a_i-1\), a leaf contributes \(B_{b+m_i-s}(x)w^s\) when it sends \(s\) units to the center. Applying~\eqref{eq:coord} to the center as well gives
+\begin{equation}
+ G(x)=\sum_{j=0}^{326} B_j(x)[w^j]\!
+ \left(\sum_{s=0}^{23} B_{23-s}(x)w^s\right)^{10}
+ \left(B_{30}(x)+B_{29}(x)w\right)^{96}.                          \label{eq:G}
+\end{equation}
+Here \(326\) is the total edge mass. Distinct allocations contributing to the same coefficient of \(w\) are added with their own Narayana products.
+
+For \(p\in\R[x]\), put \(L(p)=(p')^2-pp''\). Differentiating a product twice gives
+\[
+ L(pq)=q^2L(p)+p^2L(q).
+\]
+A constant has defect zero and \(L(x-r)=1\) for every \(r\in\R\). Factoring into linear terms therefore shows \(L(p)(x)\ge0\) for every real \(x\) whenever \(p\) splits over \(\R\).
+
+Set \(\bx=-1/258\). With \(d=258\), define the integers
+\[
+ (A,B,C)=d^D\bigl(G(\bx),\;\bx G'(\bx),\;\bx^2G''(\bx)\bigr).
+\]
+The certificate below yields \(A\ne0\) and
+\begin{equation}
+ 12\,223\,800\,A^2 < AC-B^2 < 12\,223\,801\,A^2 .                \label{eq:bounds}
+\end{equation}
+In fact \(AC-B^2=-d^{2D}\bx^2L(G)(\bx)\). The left inequality gives \(L(G)(\bx)<0\), so \(G\) cannot split over \(\R\). Since \(F_P=x^{107}G\), any nonreal zero of \(G\) is also a zero of \(F_P\). The fundamental theorem of algebra now gives the asserted nonreal complex zero.
+
+\section{Exact evaluation}\label{sec:exact}
+For \(0\le k\le h\), put \(c_{hk}=\binom{h+1}{k}\binom{h+1}{k+1}/(h+1)\), the coefficient of \(x^k\) in \(B_h\). The following triple uses integer powers and the ordinary first and second derivatives.
+\begin{equation}
+ T_h=\sum_{k=0}^h c_{hk}(-1)^k d^{h-k}\,(1,k,k(k-1)).
+                                                                    \label{eq:Th}
+\end{equation}
+Its entries equal \(d^h(B_h(\bx),\bx B_h'(\bx),\bx^2B_h''(\bx))\).
+For triples define componentwise addition and the product
+\[
+ (a,b,c)\odot(u,v,w)=(au,\;bu+av,\;cu+2bv+aw).
+\]
+The product rule gives the three entries for a product of polynomials, while the scalar powers of \(d\) multiply. Formula~\eqref{eq:Th} for \(0\le h\le326\) supplies every triple needed by~\eqref{eq:G}.
+
+Start a row with \(R_0=(1,0,0)\) and take all other entries to be zero. For one leaf with translation \(a\) and mass \(m\), form a fresh row
+\[
+ R'_j=\sum_{s=0}^{\min(j,m)}R_{j-s}\odot T_{a-1+m-s}.
+\]
+Use ten updates with \((a,m)=(1,23)\) and then 96 with \((a,m)=(30,1)\).
+At a fixed index \(j\) the total degree of the leaf factors is
+\(\sum_{\mathrm{processed}\ i}(a_i-1+m_i)-j\).
+Consequently all terms in that entry have the same scale. The final contraction
+\(\sum_{j=0}^{326}R_j\odot T_j\) restores \(d^D\) in every term and returns
+\((A,B,C)\) exactly.
+
+All three integers are positive. Their binary lengths are 24,310 for \(A\), 24,322 for \(B\), and 24,335 for \(C\). The full signed hexadecimal integers are given in the supplementary file \texttt{certificate.txt}. Evaluating \eqref{eq:Th} and the row updates with the accompanying integer-arithmetic script \texttt{verify.py} gives
+\[
+ \left\lfloor(AC-B^2)/A^2\right\rfloor=12\,223\,800
+\]
+with positive remainder. This verifies both strict bounds in~\eqref{eq:bounds}.
+
+\section*{Supplementary material}
+The exact integer certificate and a Python script for reproducing the
+calculation in Section~\ref{sec:exact} accompany this article.
+
+\section*{Use of generative AI}
+OpenAI's GPT 6.2 Astra contributed to the discovery of the weighted-star
+counterexample, the development of the proof and exact arithmetic check,
+and the preparation of this manuscript.
+
+\begin{thebibliography}{1}
+\bibitem{defant} C. Defant, \emph{Log-Concavity in Narayana Transforms and Stack-Sorting Fibers}, arXiv:2611.13479v1 (2026), \S9.2, \href{https://arxiv.org/html/2611.13479v1#S9.SS2}{Question~9.4}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,62 @@
+name = "QFibAudit"
+version = "0.1.0"
+defaultTargets = ["QFibAudit"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.24.0"
+
+[[lean_lib]]
+name = "QFibFinite"
+
+[[lean_lib]]
+name = "QFibModel"
+
+[[lean_lib]]
+name = "QFibArrays"
+
+[[lean_lib]]
+name = "QFibBridge"
+
+[[lean_lib]]
+name = "QFibCentral"
+
+[[lean_lib]]
+name = "QFibCutoff"
+
+[[lean_lib]]
+name = "QFibAnalytic"
+
+[[lean_lib]]
+name = "QFibRoots"
+
+[[lean_lib]]
+name = "QFibError"
+
+[[lean_lib]]
+name = "QFibPoles"
+
+[[lean_lib]]
+name = "QFibFamilies"
+
+[[lean_lib]]
+name = "QFibTruncate"
+
+[[lean_lib]]
+name = "QFibResidues"
+
+[[lean_lib]]
+name = "QFibMidpoint"
+
+[[lean_lib]]
+name = "QFibSurvivors"
+
+[[lean_lib]]
+name = "QFibSpecialization"
+
+[[lean_lib]]
+name = "QFibBounds"
+
+[[lean_lib]]
+name = "QFibAudit"

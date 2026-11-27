@@ -1,0 +1,294 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,microtype}
+\usepackage[margin=1.02in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Unimodality of the q-Fibonomial coefficients},pdfauthor={Kalle Nikula-Gill}}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\dd}{\Delta}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\DeclareMathOperator{\ord}{ord}
+\title{Unimodality of the \(q\)-Fibonomial coefficients}
+\author{Kalle Nikula-Gill}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+We give a computer-assisted proof of the unimodality conjecture of
+Bergeron, Ceballos and K\"ustner. A recurrence reduces the inductive
+step to \(F_m\) consecutive differences at the midpoint. The last three
+Fibonacci factors have pairwise coprime denominator lengths, so the
+difference is an explicit positive linear term plus simple
+root-of-unity contributions. We bound the latter uniformly for
+\(m\ge40\). The remaining arithmetic consists of 1,424 integer
+inequalities and 28 exact coefficient computations.
+\end{abstract}
+
+\section{Statement and polynomial model}
+Let \(F_0=0,\ F_1=1,\ F_{j+2}=F_{j+1}+F_j\). Write
+\([a]_q=\sum_{j=0}^{a-1}q^j\) and \(H_t=\prod_{j=1}^{t}[F_j]_q\),
+with \(H_0=1\). The \(q\)-Fibonomial polynomial is
+\begin{equation}\label{eq:def}
+ P_{m,n}(q)=\frac{H_{m+n}}{H_mH_n}
+ =\prod_{j=1}^{m}\frac{1-q^{F_{n+j}}}{1-q^{F_j}} .
+\end{equation}
+Bergeron, Ceballos and K\"ustner conjectured unimodality
+\cite[Conjecture~2.5]{BCK}. This is Conjecture~1.1 of Connelly, Ito,
+Martinez, Shevchenko and Yang, who proved the cases
+\(\min(m,n)\le3\) \cite[Theorem~1.2]{CIMSY}.
+
+\begin{theorem}\label{thm:main}
+For every \(m,n\ge0\), write \(P_{m,n}(q)=\sum_{i=0}^d c_iq^i\).
+With \(h=\lfloor d/2\rfloor\), the coefficients satisfy
+\(c_0\le\cdots\le c_h\ge c_{h+1}\ge\cdots\ge c_d\).
+\end{theorem}
+
+We record why \eqref{eq:def} is a polynomial. Consecutive Fibonacci
+numbers are coprime by the Euclidean algorithm, and induction gives
+\begin{equation}\label{eq:add}
+ F_{a+t}=F_{a+1}F_t+F_aF_{t-1}\qquad(t\ge1).
+\end{equation}
+If \(e>1\) divides some positive-index Fibonacci number, let \(r\) be
+its least positive index of divisibility. Then \(e\mid F_j\) exactly
+when \(r\mid j\). In fact \(F_{r+t}\equiv F_{r+1}F_t\bmod e\), also
+at \(t=0\), and \(F_{r+1}\) is invertible modulo \(e\). Reduction of
+\(j\) modulo \(r\) proves the assertion. Each root of \(1-q^a\) is
+simple for \(a>0\). At a root of order \(e>1\) of the denominator of
+\eqref{eq:def}, the interval \([1,m]\) contains \(\lfloor m/r\rfloor\)
+multiples of \(r\), and \([n+1,n+m]\) contains at least as many. At
+\(1\) there are \(m\) factors on each side. This proves divisibility
+over \(\mathbb C\). Expansion at zero gives integer coefficients and
+constant term~1.
+
+The factorial formula is symmetric in \(m,n\). Each \([a]_q\) is
+reciprocal of degree \(a-1\), so \(c_i=c_{d-i}\). Summing the
+recurrence gives \(\sum_{j=1}^t F_j=F_{t+2}-1\), hence
+\begin{equation}\label{eq:degree}
+ d=\sum_{j=1}^m(F_{n+j}-F_j)
+   =F_{m+n+2}-F_{m+2}-F_{n+2}+1.
+\end{equation}
+In particular \(P_{0,n}=P_{n,0}=1\). Extend all coefficient sequences
+by zero to indices in \(\Z\) and put
+\(\dd P(i)=[q^i](1-q)P=c_i-c_{i-1}\). Reciprocity gives
+\(\dd P(d+1-i)=-\dd P(i)\), including the middle zero when \(d\) is
+odd. It suffices to prove \(\dd P(i)\ge0\) for \(0\le i\le h\).
+
+\section{Reduction to the midpoint}
+Fix \(n\) and induct on \(m\le n\). For \(m=1\) we have \([F_{n+1}]_q\).
+For \(m=2\) we have \([a]_q[b]_q\), where \(a=F_{n+1}\le b=F_{n+2}\).
+Its differences through the midpoint are nonnegative, since
+\((1-q)[a]_q[b]_q=(1-q^b)[a]_q\) and
+\(\lfloor(a+b-2)/2\rfloor<b\).
+For \(m=3\), put \(C=F_{n+1}, B=F_{n+2}, A=F_{n+3}=B+C\).
+Here \(h=A-2\). The series \(1/((1-q)(1-q^2))\) has coefficients
+\(t(i)=\lfloor i/2\rfloor+1\) for \(i\ge0\) and \(t(i)=0\)
+otherwise. Through \(h\) the differences are
+\(t(i)-t(i-C)-t(i-B)\). For \(i<B\) use monotonicity of \(t\).
+For \(B\le i\le A-2\), use
+\[
+ \left\lfloor\tfrac{i-C}{2}\right\rfloor+
+ \left\lfloor\tfrac{i-B}{2}\right\rfloor
+ \le\left\lfloor\tfrac{2i-A}{2}\right\rfloor
+ \le\left\lfloor\tfrac i2\right\rfloor-1 .
+\]
+
+For \(m\ge4\), write \(f=P_{m-1,n},\ g=P_{m,n},\
+D=\deg f,\ A=F_{m+n},\ w=F_m\). Then \(d=D+A-w\), and
+\begin{equation}\label{eq:diff}
+ \dd g(i)-\dd g(i-w)=\dd f(i)-\dd f(i-A).
+\end{equation}
+Indeed \((1-q^w)g=(1-q^A)f\). By \eqref{eq:degree},
+\(D<F_{m+n+1}<2A\). For \(0\le i\le D/2\) we have \(i<A\),
+so the right side of \eqref{eq:diff} is nonnegative by induction.
+For \(D/2<i\le d/2\) we have \(\dd f(i)\le0\) by reciprocity and
+\(i-A<D/2\), so the right side is nonpositive. Along each residue
+class modulo \(w\), the values of \(\dd g\) therefore rise from zero
+and then fall through \(h\). The first part is nonnegative, and the
+second part is bounded below by its last value. It suffices to check
+\begin{equation}\label{eq:window}
+ h-w+1\le i\le h .
+\end{equation}
+
+\section{The central difference}
+Put \(C=F_{m+n-2},\ B=F_{m+n-1},\ A=B+C\), and
+\(u=F_{m-2},\ v=F_{m-1},\ w=u+v\). Write \(Q=P_{m-3,n}\) and
+\(T=\deg Q=B-F_{n+2}-v+1\). Thus \(d=T+2A-2w\).
+Every \(i\) in \eqref{eq:window} satisfies
+\begin{equation}\label{eq:indices}
+ B+T\le i<A+C .
+\end{equation}
+For the upper bound use \(T<B<2C\). For the lower bound,
+\(m,n\ge4\) and \(n\ge m\) give
+\[
+ 2C-T=F_{m+n-4}+F_{n+2}+v-1
+ \ge w+(2w+v)+v-1\ge4w,
+\]
+since \(2v-w=F_{m-3}\ge1\). Substitute
+\(h=A-w+\lfloor T/2\rfloor\) in \eqref{eq:window}.
+
+Define \(G(q)=(1-q)/((1-q^u)(1-q^v)(1-q^w))\). The three top factors
+in the numerator multiply to
+\(1-q^C-q^B+q^{A+C}+q^{A+B}-q^{2A}\).
+By \eqref{eq:indices}, only \(1-q^C-q^B\) contributes to \(\dd g(i)\).
+Further, \(i-j,\ i-B-j,\ i-C-j\) are nonnegative for every
+\(0\le j\le T\). This permits the use of the same partial fraction
+coefficient formula in all three terms.
+
+The lengths \(u,v,w\) are pairwise coprime. The proper rational
+function \(G\) has a double pole at 1 and simple poles at the
+nontrivial roots of its denominator. Writing \(z=1-q\), we obtain
+from \(1-q^U=Uz-U(U-1)z^2/2+O(z^3)\) the principal part
+\[
+ \frac1{uvw}\left(\frac1{(1-q)^2}
+       +\frac{2w-3}{2(1-q)}\right).
+\]
+Its coefficient at \(t\ge0\) is \((t+(2w-1)/2)/(uvw)\).
+Since \(Q\) is reciprocal, \(\sum_{j=0}^T j[q^j]Q=TQ(1)/2\).
+Convolution with \((1-q^C-q^B)Q\) now gives
+\begin{equation}\label{eq:main}
+ \dd g(i)=\frac{Q(1)}{uvw}\left(\frac{d+1}{2}-i\right)+E_i .
+\end{equation}
+Indeed the linear expression inside the convolution at \(j\) becomes
+\(A-i+j-(2w-1)/2\). As \(i\le h\), the displayed main term is at
+least \(Q(1)/(2uvw)\), and \(Q(1)>0\) by \eqref{eq:def}.
+
+Let \(M\) be the largest \(\abs{Q(\zeta)}/Q(1)\) over the nontrivial
+roots in question. For each cyclic permutation \((U,V,W)\) of
+\((u,v,w)\) and each \(\zeta\ne1\) with \(\zeta^U=1\), the
+corresponding summand in \(E_i\) is
+\[
+ \frac{(1-\zeta)(1-\zeta^C-\zeta^B)Q(\zeta)\zeta^{-i}}
+      {U(1-\zeta^V)(1-\zeta^W)}.
+\]
+This follows by taking the limit of \((1-q/\zeta)G(q)\) at \(\zeta\)
+and expanding \(1/(1-q/\zeta)\) at zero. There is no polynomial
+part in the partial fraction expansion. The first two numerator
+factors have product of absolute value at most \(6\).
+As \(V\equiv\pm W\bmod U\) and \(\gcd(U,V)=1\), the sum over these
+roots is bounded using
+\[
+ \sum_{\zeta^U=1,\,\zeta\ne1}\frac1{\abs{1-\zeta}^2}
+ =\frac{U^2-1}{12}.
+\]
+For completeness let \(H(x)=1+x+\cdots+x^{U-1}\). With
+\(a_\zeta=1/(1-\zeta)\) we have
+\(\bar a_\zeta=1-a_\zeta\).
+Factoring \(H\) gives \(\sum a_\zeta=H'(1)/H(1)=(U-1)/2\) and
+\(\sum a_\zeta^2=(\sum a_\zeta)^2-H''(1)/H(1)\), where
+\(H''(1)/H(1)=(U-1)(U-2)/3\). Subtraction gives the identity, also
+when \(U=1\). Summing over the three lengths yields
+\[
+ \abs{E_i}\le M Q(1)\sum_{U=u,v,w}\frac{U^2-1}{2U}
+ \le wM Q(1).
+\]
+Here the sum is over the three positions. By \eqref{eq:main}, strict
+positivity on the window follows if
+\begin{equation}\label{eq:target} 2uvw^2 M<1. \end{equation}
+
+\section{A bound at each root}
+Let \(\zeta\) have order \(e>1\) dividing \(u\), \(v\), or \(w\).
+Write \(p=m-3\) and
+\[
+ s=\#\{1\le j\le p:e\nmid F_j\},\qquad
+ k=\#\{2\le j\le p:2F_j<e\}.
+\]
+We claim that
+\begin{equation}\label{eq:root}
+ \frac{\abs{Q(\zeta)}}{Q(1)}
+ \le \frac1{k!}\left(\frac{e}{2F_{n+1}}\right)^s .
+\end{equation}
+Use the rank \(r\) of divisibility from Section~1. In \eqref{eq:def}
+for \(Q\), vanishing factors in the denominator occur at the multiples
+of \(r\) in \([1,p]\). The numerator has at least as many vanishing
+factors. If it has more then \(Q(\zeta)=0\). In case of equality,
+the \(\ell\)-th deleted numerator position \(c+(\ell-1)r\), for
+\(1\le c\le r\), is at most the \(\ell\)-th deleted denominator
+position \(\ell r\). In every prefix the numerator thus has at least
+as many deletions. Its surviving indices \(i\) are correspondingly
+at least the denominator indices \(j\) in increasing order.
+
+Normalize each factor \(1-q^a\) by dividing it by \(a\). This
+computes \(Q(q)/Q(1)\). At a zero the normalized derivative is
+\(-\zeta^{a-1}=-\zeta^{-1}\), so each deleted pair contributes
+absolute ratio one. For each surviving pair,
+\(F_{n+i}\ge F_{n+j}\ge F_{n+1}F_j\) by \eqref{eq:add}.
+Write \(\zeta=\exp(2\pi\mathrm{i}b/e)\) with \(\gcd(b,e)=1\), and
+let \(r_j\) be the distance from \(bF_j\) to the nearest multiple
+of \(e\). Then \(1\le r_j\le e/2\) and
+\[
+ \abs{1-\zeta^{F_j}}=2\sin(\pi r_j/e)\ge 4r_j/e
+\]
+by concavity of sine on \([0,\pi/2]\). The numerator factor has
+absolute value at most 2 before normalization. Each pair therefore
+contributes at most \(e/(2F_{n+1}r_j)\).
+The \(k\) Fibonacci numbers in the definition of \(k\) are distinct
+and lie strictly between 0 and \(e/2\). Thus no two are congruent
+up to sign modulo \(e\), even after multiplication by \(b\).
+Their \(r_j\)'s are distinct positive integers with product at least
+\(k!\). This proves \eqref{eq:root}.
+
+\section{Cutoffs and exact computation}
+It is enough to show
+\begin{equation}\label{eq:integer}
+  (2F_{n+1})^s k!> 2uvw^2 e^s
+\end{equation}
+for every possible order. Suppose first that \(m\ge40\).
+We have \(F_m^4\le8^m\). Check \(0\le m\le4\) directly. For \(j\ge1\),
+\(F_{j+1}\le2F_j\) gives \(F_{j+4}=3F_{j+1}+2F_j\le8F_j\), so
+the inequality propagates from \(j\) to \(j+4\). Thus \(uvw^2\le8^m\).
+
+If \(e\le w/32\), then \(2F_{n+1}/e\ge64\).
+Since \(r\ge3\), we have \(s=p-\lfloor p/r\rfloor\ge2p/3\).
+It follows that \((2F_{n+1}/e)^s k!\ge 2^{4(m-3)}>2\cdot8^m\).
+If \(e>w/32\), then \eqref{eq:add} gives
+\(w\ge F_{11}F_{m-10}=89F_{m-10}\). Consequently
+\(2F_{m-10}<e\), and the indices \(2,\ldots,m-10\) give
+\(s\ge k\ge m-11\). Also \(e\le w\le F_{n+1}\).
+It follows that \((2F_{n+1}/e)^s k!\ge 2^{m-11}(m-11)!>
+2\cdot8^m\). The last strict inequality holds initially since
+\(29!>2^{92}\), and its left side gains a factor \(2(m-10)>8\)
+in each step. This proves \eqref{eq:integer} for \(m\ge40\).
+
+For \(4\le m<40\) and \(n\ge\max(m,11)\), the left side of
+\eqref{eq:integer} is nondecreasing in \(n\). The supplement tests
+\(n=\max(m,11)\) and every distinct divisor \(e>1\) of the three
+lengths. It obtains all divisors of \(a\) by pairing \(b\) and \(a/b\)
+for \(1\le b\le\lfloor\sqrt a\rfloor,\ b\mid a\). The enumeration
+uses 1,424 pairs \((m,e)\).
+
+The remaining dimensions are exactly \(4\le m\le n\le10\), giving
+28 pairs. Work modulo \(q^{h+1}\) starting from the polynomial~1.
+For \(j=1,\ldots,m\), divide by \(1-q^{F_j}\) when \(j>1\)
+and multiply by \(1-q^{F_{n+j}}\). The missing denominator
+\(1-q^{F_1}\) cancels the leading \(1-q\) in \(\dd P\).
+Division by \(1-q^a\) updates coefficients in increasing degree
+by \(y_i=x_i+y_{i-a}\). Multiplication uses decreasing degree and
+\(y_i=x_i-x_{i-a}\), with zero at negative indices. The surviving
+array is exactly \((\dd P(0),\ldots,\dd P(h))\). All its entries
+are nonnegative in all 28 cases. This completes the induction and
+proves Theorem~\ref{thm:main}.
+
+\section*{Computational supplement}
+The accompanying Python 3 program \texttt{original\_verifier.py}
+implements the two finite checks in Section~5 using exact integer
+arithmetic and the standard library.
+
+\section*{Use of generative AI}
+OpenAI's GPT 6.2 Astra contributed to developing the proof and the
+computational supplement, checking the argument, and drafting the
+manuscript.
+
+\begin{thebibliography}{9}
+\bibitem{BCK} N. Bergeron, C. Ceballos and J. K\"ustner.
+Elliptic and \(q\)-analogs of the Fibonomial numbers.
+\emph{SIGMA} 16 (2020), 076.
+\href{https://doi.org/10.3842/SIGMA.2020.076}{doi:10.3842/SIGMA.2020.076}.
+\bibitem{CIMSY} B. B. Connelly, E. Ito, T. C. Martinez, O. Shevchenko
+and K. Yang. Unimodality of \(q\)-Fibonomial coefficients for small cases.
+\href{https://arxiv.org/abs/2605.12822v1}{arXiv:2605.12822v1} (2026).
+\end{thebibliography}
+\end{document}

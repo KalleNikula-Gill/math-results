@@ -1,0 +1,7 @@
+lean/.lake/
+lean/logs/
+paper/*.aux
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.out
